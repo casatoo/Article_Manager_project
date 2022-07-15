@@ -18,7 +18,7 @@ public class Main {
 		while (true) {
 
 			System.out.printf("명령어 ) ");
-			String cmd = sc.nextLine().trim();
+			String cmd = sc.nextLine().trim();                  // trim = 공백제거함수
 			if (cmd.length() == 0) {
 				System.out.println("명령어를 입력해주세요");
 				continue;
@@ -36,7 +36,7 @@ public class Main {
 				System.out.printf("내용 : ");
 				String body = sc.nextLine();
 				LocalDateTime now = LocalDateTime.now();
-				String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초"));
+				String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
 				Article article = new Article(id, title, body, formatedNow);
 				articles.add(article);
@@ -45,14 +45,13 @@ public class Main {
 
 			} else if (cmd.equals("article list")) {
 				if (articles.size() > 0) {
-					System.out.println("번호  /  제목");
+					System.out.println("번호  |       작성일        |  제목");
 					for (int i = articles.size() - 1; i >= 0; i--) {
-						System.out.println(articles.get(i).id + "      " + articles.get(i).title);
+						System.out.println(" "+articles.get(i).id+"   |" + articles.get(i).date +"| "+ articles.get(i).title);
 					}
 				} else {
 					System.out.println("게시글이 없습니다.");
 				}
-
 			} else if (cmd.startsWith("article detail ")) {
 
 				String[] cmdBits = cmd.split(" ");
@@ -95,6 +94,34 @@ public class Main {
 					if(foundAticle ==false) {
 						System.out.println(id+"번째 글이 없습니다.");
 					}
+					
+				}
+				else if(cmd.startsWith("article modify ")) {
+					String[] cmdBits = cmd.split(" ");
+					int id = Integer.parseInt(cmdBits[2]);
+					boolean foundAticle = false;
+					for(int i =0;i<articles.size();i++) {
+						Article article = articles.get(i);
+						if(article.id == id) {
+							foundAticle = true;
+							articles.remove(i);
+							break;
+						}
+					}
+					if(foundAticle ==false) {
+						System.out.println(id+"번째 글이 없습니다.");
+					}
+					System.out.printf("제목 : ");
+					String title = sc.nextLine();
+					System.out.printf("내용 : ");
+					String body = sc.nextLine();
+					LocalDateTime now = LocalDateTime.now();
+					String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+					Article article = new Article(id, title, body, formatedNow);
+					articles.add(article);
+
+					System.out.printf("%d번 글이 수정되었습니다\n", id);
 					
 				}
 
