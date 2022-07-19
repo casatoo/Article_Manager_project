@@ -47,14 +47,36 @@ public class App {
 
 				System.out.printf("%d번 글이 생성되었습니다\n", id);
 
-			} else if (cmd.equals("article list")) {
+			} else if (cmd.startsWith("article list")) {
 				if (articles.size() == 0) {
 					System.out.println("게시물이 없습니다");
 					continue;
 				}
+
+				String searchKeyword = cmd.substring("article list".length()).trim();
+
+				System.out.printf("검색어 : %s\n", searchKeyword);
+
+				List<Article> forPrintArticles = articles;
+
+				if (searchKeyword.length() > 0) {
+					forPrintArticles = new ArrayList<>();
+
+					for (Article article : articles) {
+						if (article.title.contains(searchKeyword)) {
+							forPrintArticles.add(article);
+						}
+					}
+
+					if (forPrintArticles.size() == 0) {
+						System.out.println("검색 결과가 없습니다");
+						continue;
+					}
+				}
+
 				System.out.printf("번호    |   제목   |   	  %7s        |   조회\n", "날짜");
-				for (int i = articles.size() - 1; i >= 0; i--) {
-					Article article = articles.get(i);
+				for (int i = forPrintArticles.size() - 1; i >= 0; i--) {
+					Article article = forPrintArticles.get(i);
 
 					System.out.printf("%7d | %6s   | %5s   | %5d\n", article.id, article.title, article.regDate,
 							article.hit);
@@ -88,7 +110,6 @@ public class App {
 				int id = Integer.parseInt(cmdBits[2]);
 
 				Article foundArticle = getArticleById(id);
-
 
 				if (foundArticle == null) {
 					System.out.printf("%d번 게시물은 없습니다\n", id);
@@ -130,9 +151,10 @@ public class App {
 	}
 
 	private int getArticleIndexById(int id) {
-		int i =0;
-		for(Article article : articles) {
-			if(article.id == id) {
+		int i = 0;
+		for (Article article : articles) {
+
+			if (article.id == id) {
 				return i;
 			}
 			i++;
@@ -141,12 +163,12 @@ public class App {
 	}
 
 	private Article getArticleById(int id) {
+		int index = getArticleIndexById(id);
 
-		for (Article article : articles) {
-			if (article.id == id) {
-				return article;
-			}
+		if (index != -1) {
+			return articles.get(index);
 		}
+
 		return null;
 	}
 
