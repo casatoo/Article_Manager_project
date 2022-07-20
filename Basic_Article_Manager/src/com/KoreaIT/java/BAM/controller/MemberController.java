@@ -8,35 +8,42 @@ import com.KoreaIT.java.BAM.dto.Member;
 import com.KoreaIT.java.BAM.util.Util;
 
 public class MemberController {
+	private Scanner sc;
+	private List<Member> members;
 
-	private static List<Member> members;
-	private static Scanner sc = new Scanner(System.in);
-	public static void dojoin() {		
+	public MemberController() {
 		members = new ArrayList<>();
-		
+		sc = new Scanner(System.in);
+	}
+
+
+	public void doJoin() {
 		int id = members.size() + 1;
 		String regDate = Util.getNowDateStr();
-
 		String loginId = null;
+
 		while (true) {
+
 			System.out.printf("로그인 아이디 : ");
 			loginId = sc.nextLine();
+
 			if (isJoinableLoginId(loginId) == false) {
-				System.out.printf("%s 는 이미 사용중인 아이디입니다.", loginId);
+				System.out.printf("%s은(는) 이미 사용중인 아이디입니다\n", loginId);
 				continue;
 			}
 			break;
-			// 중복 여부 확인
 		}
 
 		String loginPw = null;
 		String loginPwConfirm = null;
+
 		while (true) {
+
 			System.out.printf("로그인 비밀번호 : ");
 			loginPw = sc.nextLine();
 			System.out.printf("로그인 비밀번호 확인 : ");
 			loginPwConfirm = sc.nextLine();
-			// 패스워드 일치 여부 확인
+
 			if (loginPw.equals(loginPwConfirm) == false) {
 				System.out.println("비밀번호를 다시 입력해주세요");
 				continue;
@@ -52,24 +59,27 @@ public class MemberController {
 
 		System.out.printf("%d번 회원님 환영합니다\n", id);
 	}
-	private static boolean isJoinableLoginId(String loginId) {
-		int index = getmemberIndexById(loginId);
-		
-		if(index == -1) {
+
+	private boolean isJoinableLoginId(String loginId) {
+		int index = getMemberIndexByLoginId(loginId);
+
+		if (index == -1) {
 			return true;
 		}
-		
-	return false;
+
+		return false;
 	}
-	private static int getmemberIndexById(String loginId) {
+
+	private int getMemberIndexByLoginId(String loginId) {
 		int i = 0;
 		for (Member member : members) {
-
 			if (member.loginId.equals(loginId)) {
 				return i;
 			}
 			i++;
 		}
+
 		return -1;
 	}
+
 }
