@@ -7,15 +7,27 @@ import java.util.Scanner;
 import com.KoreaIT.java.BAM.dto.Member;
 import com.KoreaIT.java.BAM.util.Util;
 
-public class MemberController {
-	private Scanner sc;
-	private List<Member> members;
+public class MemberController extends Controller {
+	Scanner sc = new Scanner(System.in);
+	private List<Member> members = new ArrayList<>();
+	private String cmd;
+	private String actionMethodName;
 
-	public MemberController() {
-		members = new ArrayList<>();
-		sc = new Scanner(System.in);
+	public MemberController(){
 	}
+	
+	public void doAction(String cmd, String actionMethodName) {
+		this.cmd = cmd;
+		this.actionMethodName = actionMethodName;
 
+		switch (actionMethodName) {
+		case "join":
+			doJoin();
+			break;
+		default :
+			System.out.println("존재하지 않는 명령어입니다.");
+		}
+	}
 
 	public void doJoin() {
 		int id = members.size() + 1;
