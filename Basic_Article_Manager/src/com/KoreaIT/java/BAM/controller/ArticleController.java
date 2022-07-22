@@ -193,7 +193,7 @@ public class ArticleController extends Controller {
 
 		return null;
 	}
-	private void makeTestData() {
+	public void makeTestData() {
 		System.out.println("테스트를 위한 게시물 데이터를 생성합니다.");
 		id += 1;
 		articles.add(new Article(id, Util.getNowDateStr(), "제목1", "내용1", 11));
