@@ -1,12 +1,12 @@
-package com.KoreaIT.java.BAM.controller;
+package com.KMS.java.BAM.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.KoreaIT.java.BAM.dto.Article;
-import com.KoreaIT.java.BAM.dto.Member;
-import com.KoreaIT.java.BAM.util.Util;
+import com.KMS.java.BAM.dto.Article;
+import com.KMS.java.BAM.dto.Member;
+import com.KMS.java.BAM.util.Util;
 
 public class MemberController extends Controller {
 	Scanner sc = new Scanner(System.in);
@@ -40,6 +40,7 @@ public class MemberController extends Controller {
 		default :
 			System.out.println("존재하지 않는 명령어입니다.");
 		}
+		sc.close();
 	}
 
 	public void doJoin() {
@@ -152,7 +153,7 @@ public class MemberController extends Controller {
 	}
 	
 	public void makeTestData() {
-		System.out.println("테스트를 위한 게시물 데이터를 생성합니다.");
+		System.out.println("테스트를 위한 회원 데이터를 생성합니다.");
 		id += 1;
 		members.add(new Member(id, Util.getNowDateStr(), "id1", "pw1", "홍길동"));
 		id += 1;

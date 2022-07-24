@@ -1,10 +1,11 @@
-package com.KoreaIT.java.BAM.dto;
+package com.KMS.java.BAM.dto;
 
 public class Article extends Dto {
 
 	public String title;
 	public String body;
 	public int hit;
+	public String name;
 
 	public Article(int id, String regDate, String title, String body) {
 		this(id, regDate, title, body, 0);

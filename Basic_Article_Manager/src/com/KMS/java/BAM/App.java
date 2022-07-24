@@ -1,18 +1,18 @@
-package com.KoreaIT.java.BAM;
+package com.KMS.java.BAM;
 
 import java.util.List;
 import java.util.Scanner;
 
-import com.KoreaIT.java.BAM.controller.ArticleController;
-import com.KoreaIT.java.BAM.controller.Controller;
-import com.KoreaIT.java.BAM.controller.MemberController;
-import com.KoreaIT.java.BAM.dto.Article;
-import com.KoreaIT.java.BAM.dto.Member;
+import com.KMS.java.BAM.controller.ArticleController;
+import com.KMS.java.BAM.controller.Controller;
+import com.KMS.java.BAM.controller.MemberController;
+import com.KMS.java.BAM.dto.Article;
+import com.KMS.java.BAM.dto.Member;
 
 public class App {
 
 	public void run() {
-		System.out.println("==프로그램 시작==");
+		System.out.println("====== 프로그램 시작 ======");
 
 		Scanner sc = new Scanner(System.in);
 
@@ -21,7 +21,7 @@ public class App {
 
 		while (true) {
 
-			System.out.printf("명령어 ) ");
+			System.out.printf("명령어 : ");
 			String cmd = sc.nextLine().trim();
 			if (cmd.length() == 0) {
 				System.out.println("명령어를 입력해주세요");
@@ -57,7 +57,7 @@ public class App {
 
 		}
 
-		System.out.println("==프로그램 끝==");
+		System.out.println("====== 프로그램 끝 ======");
 		sc.close();
 	}
 

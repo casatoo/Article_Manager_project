@@ -1,4 +1,4 @@
-package com.KoreaIT.java.BAM.dto;
+package com.KMS.java.BAM.dto;
 
 public class Member extends Dto {
 

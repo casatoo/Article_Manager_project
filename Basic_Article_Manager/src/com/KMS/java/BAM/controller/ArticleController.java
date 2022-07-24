@@ -1,11 +1,11 @@
-package com.KoreaIT.java.BAM.controller;
+package com.KMS.java.BAM.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.KoreaIT.java.BAM.dto.Article;
-import com.KoreaIT.java.BAM.util.Util;
+import com.KMS.java.BAM.dto.Article;
+import com.KMS.java.BAM.util.Util;
 
 public class ArticleController extends Controller {
 	private List<Article> articles = new ArrayList<>();
@@ -41,6 +41,7 @@ public class ArticleController extends Controller {
 		default :
 			System.out.println("존재하지 않는 명령어입니다.");
 		}
+		sc.close();
 	}
 
 
@@ -202,5 +203,5 @@ public class ArticleController extends Controller {
 		id += 1;
 		articles.add(new Article(id, Util.getNowDateStr(), "제목3", "내용3", 33));
 	}
-
+	
 }
