@@ -37,9 +37,17 @@ public class ArticleController extends Controller {
 			showDetail();
 			break;
 		case "modify":
+			if(logincheck()==false) {
+				System.out.println("로그인 후 사용 가능합니다.");
+				break;
+			}
 			doModify();
 			break;
 		case "delete":
+			if(logincheck()==false) {
+				System.out.println("로그인 후 사용 가능합니다.");
+				break;
+			}
 			doDelete();
 			break;
 		default :
@@ -49,7 +57,7 @@ public class ArticleController extends Controller {
 
 
 	public void doWrite() {
-		String writename = loginedMember.loginId;
+		String writename = loginedMember.name;
 		id += 1;
 		String regDate = Util.getNowDateStr();
 		System.out.printf("제목 : ");
@@ -144,15 +152,20 @@ public class ArticleController extends Controller {
 			System.out.printf("%d번 게시물은 없습니다\n", id);
 			return;
 		}
-		System.out.printf("제목 : ");
-		String title = sc.nextLine();
-		System.out.printf("내용 : ");
-		String body = sc.nextLine();
+		if(foundArticle.writename.equals(loginedMember.name)) {
+			System.out.printf("제목 : ");
+			String title = sc.nextLine();
+			System.out.printf("내용 : ");
+			String body = sc.nextLine();
 
-		foundArticle.title = title;
-		foundArticle.body = body;
+			foundArticle.title = title;
+			foundArticle.body = body;
 
-		System.out.printf("%d번 게시물을 수정했습니다\n", id);
+			System.out.printf("%d번 게시물을 수정했습니다\n", id);
+		}
+		else {
+			System.out.println("회원님이 작성한 글이 아닙니다.");
+		}
 
 	}
 
@@ -167,14 +180,19 @@ public class ArticleController extends Controller {
 		int id = Integer.parseInt(cmdBits[2]);
 
 		int foundIndex = getArticleIndexById(id);
+		Article foundArticle = getArticleById(id);
 
 		if (foundIndex == -1) {
 			System.out.printf("%d번 게시물은 없습니다\n", id);
 			return;
 		}
-
+		if(foundArticle.writename.equals(loginedMember.name)) {
 		articles.remove(foundIndex);
 		System.out.printf("%d번 게시물을 삭제했습니다\n", id);
+		}
+		else {
+			System.out.println("회원님이 작성한 글이 아닙니다.");
+		}
 
 	}
 
