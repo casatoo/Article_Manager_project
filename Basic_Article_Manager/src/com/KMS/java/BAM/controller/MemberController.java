@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.KMS.java.BAM.dto.Article;
 import com.KMS.java.BAM.dto.Member;
 import com.KMS.java.BAM.util.Util;
 
@@ -14,7 +13,6 @@ public class MemberController extends Controller {
 	private String cmd;
 	private String actionMethodName;
 	int id = 0;
-	Member loginedMember = null;
 
 	public MemberController(){
 		makeTestData();
@@ -40,7 +38,6 @@ public class MemberController extends Controller {
 		default :
 			System.out.println("존재하지 않는 명령어입니다.");
 		}
-		sc.close();
 	}
 
 	public void doJoin() {
@@ -87,7 +84,7 @@ public class MemberController extends Controller {
 	}
 	void doLogin(){
 		
-		if(loginedMember != null) {
+		if(logincheck()) {
 			System.out.println("이미 로그인 상태입니다.");
 			return;
 		}
@@ -112,7 +109,7 @@ public class MemberController extends Controller {
 		
 	}
 	void showFrofile(){
-		if(loginedMember==null) {
+		if(logincheck()==false) {
 			System.out.println("로그인 해주세요");
 		}
 		else {
@@ -121,7 +118,7 @@ public class MemberController extends Controller {
 		}
 	}
 	void doLogout(){
-		if(loginedMember != null) {
+		if(logincheck()) {
 			loginedMember = null;
 			System.out.println("성공적으로 로그아웃 되었습니다.");
 		}

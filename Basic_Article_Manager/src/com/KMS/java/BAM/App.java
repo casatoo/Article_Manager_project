@@ -1,13 +1,9 @@
 package com.KMS.java.BAM;
 
-import java.util.List;
 import java.util.Scanner;
-
 import com.KMS.java.BAM.controller.ArticleController;
 import com.KMS.java.BAM.controller.Controller;
 import com.KMS.java.BAM.controller.MemberController;
-import com.KMS.java.BAM.dto.Article;
-import com.KMS.java.BAM.dto.Member;
 
 public class App {
 
@@ -27,6 +23,7 @@ public class App {
 				System.out.println("명령어를 입력해주세요");
 				continue;
 			}
+			
 
 			if (cmd.equals("exit")) {
 				break;

@@ -27,6 +27,10 @@ public class ArticleController extends Controller {
 			showList();
 			break;
 		case "write":
+			if(logincheck()==false) {
+				System.out.println("로그인 후 사용 가능합니다.");
+				break;
+			}
 			doWrite();
 			break;
 		case "detail":
@@ -41,11 +45,11 @@ public class ArticleController extends Controller {
 		default :
 			System.out.println("존재하지 않는 명령어입니다.");
 		}
-		sc.close();
 	}
 
 
 	public void doWrite() {
+		String writename = loginedMember.loginId;
 		id += 1;
 		String regDate = Util.getNowDateStr();
 		System.out.printf("제목 : ");
@@ -53,7 +57,7 @@ public class ArticleController extends Controller {
 		System.out.printf("내용 : ");
 		String body = sc.nextLine();
 
-		Article article = new Article(id, regDate, title, body);
+		Article article = new Article(id, regDate, title, body, writename);
 		articles.add(article);
 
 		System.out.printf("%d번 글이 생성되었습니다\n", id);
@@ -87,11 +91,12 @@ public class ArticleController extends Controller {
 			}
 		}
 
-		System.out.printf("번호    |   제목   |   	  %7s        |   조회\n", "날짜");
+		System.out.println("   번호   |   제목   |   	     날짜         |   작성자  |  조회수  ");
+		System.out.println("------------------------------------------------------------");
 		for (int i = forPrintArticles.size() - 1; i >= 0; i--) {
 			Article article = forPrintArticles.get(i);
 
-			System.out.printf("%7d | %6s   | %5s   | %5d\n", article.id, article.title, article.regDate, article.hit);
+			System.out.printf("  %3d    |  %3s   | %4s |%6s  | %4d\n", article.id, article.title, article.regDate, article.writename, article.hit);
 		}
 
 	}
@@ -197,11 +202,11 @@ public class ArticleController extends Controller {
 	public void makeTestData() {
 		System.out.println("테스트를 위한 게시물 데이터를 생성합니다.");
 		id += 1;
-		articles.add(new Article(id, Util.getNowDateStr(), "제목1", "내용1", 11));
+		articles.add(new Article(id, Util.getNowDateStr(), "제목1", "내용1", "홍길동",11));
 		id += 1;
-		articles.add(new Article(id, Util.getNowDateStr(), "제목2", "내용2", 22));
+		articles.add(new Article(id, Util.getNowDateStr(), "제목2", "내용2", "김철수",22));
 		id += 1;
-		articles.add(new Article(id, Util.getNowDateStr(), "제목3", "내용3", 33));
+		articles.add(new Article(id, Util.getNowDateStr(), "제목3", "내용3", "김영희",33));
 	}
 	
 }
