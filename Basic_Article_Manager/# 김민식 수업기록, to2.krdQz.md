@@ -1,0 +1,150 @@
+# 김민식 수업기록, to2.kr/dQz
+
+---
+
+# 유용한 개념 
+
+---
+
+- [웹앱개발 수업페이지](https://codepen.io/woooyoung/full/vYRXBOM)
+---
+# 공부 기록
+
+## 2022-07-12, 1일차
+- [jdk 설치](https://www.oracle.com/kr/java/technologies/javase/javase8-archive-downloads.html)
+- 코드팬 주소 줄이기 to2.kr 접속
+- https://codepen.io/casatoo/pen/JjLRobN  <- pen을 full로 바꿈
+- 마크다운 언어로 변경, # ## 제목 작성, 하이픈3개로 줄 만들기, -[링크만들기]()
+- 아래 코드를 setting -> Stuff for <해드>에 붙여넣기
+
+## 2022-07-13, 2일차
+- 게시판 프로그램 기능 구현
+- 어떻게 작동할것인지 먼저 메모장으로 작성해본 다음 차례차례 구현
+- ArrayList 라이브러리 import
+- ArrayList <> 의 인자 형태를 Article 클래스를 만들어서 포함
+- articel write 로 글작성을 하면 자동적으로 ArrayList에 저장 [id, title, body]  
+## 2022-07-14, 3일차
+- article list 기능 구현하기 ex) 번호 / 제목 출력하기
+- 반복문으로 articles.(i).id ,articles.(i).title
+- startsWith , endsWith 대상 문자열이 특정 문자 또는 문자열로 시작하는지 체크 해서 true, false로 반환
+- parseInt = 문자열로 된 숫자를 int 형으로 변환
+- ArrayList 안에서 인자값 찾기 = 반복문을 순회하면서 arraylist에 저장된 id값을 찾는 형태
+- git으로 형상관리 하기 - clone , reflash , checkout , master 등
+
+## 2022-07-15, 4일차
+- 현재까지 게시판 기능
+
+	article list
+		1. 번호 / 글제목
+		2. 글이 없습니다.
+
+	article write
+		1. 제목: ,내용: ,%d번글이 작성되었습니다.
+
+	article detail %d
+		1. 글번호:, 날짜:, 제목:, 내용:,
+		2. 글이 존재하지 않습니다.
+
+	article delete %d
+		1. %d 번 글이 삭제되었습니다.
+		2. 글이 존재하지 않습니다.
+
+	exit
+		1. 프로그램 종료
+
+	그 외
+		1. 잘못된 명령어입니다.
+	
+- 게시글을 삭제하면 할수록 id 값과 실제 리스트 주소와 차이가 생겨 id-1 의 방법으로 글의 주소값을 찾는것은 오류가 발생할 수 있다.
+
+- date 함수로 날자 데이터 추가와 modify 기능 구현
+## 2022-07-18, 5일차
+
+- MVC
+- 리팩토링
+- DTO ,DAO 
+
+
+
+## 2022-07-19, 6일차
+
+- 글 번호 찾기 반복문 중복 제거
+	1. for문 으로 찾기 
+	2. 향상된 for 문 for each
+	3. int 형 반환과 article 형 반환 중복 제거
+	
+- 게시글 검색기능
+	1. 검색어 추출
+	2. 검색어가 없을 경우 그냥 리스트 출력
+	3. 새로운 ArraylistList 생성
+	4. contain 함수를 이용해서 검색어 확인 후 새로운 리스트에 추가
+	5. 새로운 리스트를 출력
+	
+- 회원가입 기능 추가
+	1. 새로운 객체 생성
+	2. 리스트 생성 추가
+	3. 회원가입 기능은 되지만 중복이 가능하여 기존 ID와 중복 여부를 체크할 필요가 있다.
+	4. id 속성과 regdate 속성이 중복되기 때문에 dto 라는 클래스로 따로 묶음 member 클래스와 article 클래스는 dto를 상속하여 사용
+
+## 2022-07-20, 7일차
+
+- 회원가입 기능 개선
+	1. 중복여부 체크와 비밀번호 확인 작업 추가
+		1. while 문을 통해 비밀번호 equals 비밀번호 확인 두개를 비교
+		2. members를 순회하면서 중복을 검사하는 메소드 추가
+
+- Article controller, Member controller 기능 이전
+
+- 테스트 데이터 입력 기능 이전
+
+## 2022-07-21, 8일차
+
+- controller 라는 클래스를 생성해서 cmd 정보를 가져와서 각 controller 클래스에서 실행하도록 한다.
+	- cmd 정보를 쪼개서 0번쨰 정보는 article 인지 member 인지 구별 1번쨰 정보는 매소드
+	- controller doaction 을 통해 매소드를 실행시키고 각 컨트롤러에서 swith case 문을 통해 매소드를 실행 시킨 뒤 break;
+	
+- 어레이 리스트, 스캐너를 각각의 컨트롤러에서 생성
+
+- 회원가입 기능, 로그인기능, 글삭제, 수정 권한에 대한 것 생각해보기
+
+## 2022-07-22 9일차
+
+- 로그인 기능 추가 
+	- login case 추가
+	- getMemberIndexByLoginId 메서드 활용 입력된 id 를 검색하여 id와 pw 확인
+	- 실패 메세지 추가
+	- 로그인에 성공했을 때 로그인한 member의 정보를 logined member 변수에 저장
+	
+- 로그인 테스트데이터 추가
+- 프로필 기능
+	- logined member 이 null값 일때 메세지 출력
+	- logined member 이 null 이 아닐경우 정보 출력 
+- 로그아웃 기능 
+	- logined member 이 null 값 일때 이미 로그아웃 상태임을 출력
+	- logined member 이 null 값이 아닐때 null 값으로 돌리고 로그아웃 성공 메시지 출력
+- 중복 로그인을 허용하지 않도록 로그인 메소드에 조건 추가
+	- logined member 에 값이 있을때는 로그인중이라는 메세지를 출력하고 반환
+- 생각해보기
+	- 로그인 상태에서 글쓰기, 수정, 삭제
+	- 로그인 상태가 아니라면 글쓰기나 수정 삭제는 되지않게
+	- 글을 쓴 사람이 아니면 수정이나 삭제는 가능하지 않게
+
+## 2022-07-25, 10일차
+- 타이포라(Typora)
+- 로그인 상태에서 글쓰기
+	- 로그인 여부를 알수 있는 membercontroller의 인자값을 articlecontroller에서 알아야 함.
+	- 같은 정보를 알 수 있도록 상위 클래스인 controller에 값을 저장하여 서로 같이 사용하도록 지정
+- 권한 부여
+	- 작성id 와 맴버id 의 일치여부 메소드를 추가하여 일치할 경우 실행
+```java
+private boolean matchId(int id) {
+		Article foundArticle = getArticleById(id);
+		if(foundArticle.writeid ==loginedMember.id) {
+			return true;
+		}
+		return false;
+	}
+```
+- 로그인 이 필요한 메소드 , 로그아웃이 필요한메소드를 APP 클레스로 분리
+	- cmd 명령어를 합쳐서 swich case로 controller.islogined 의 여부를 구분하여 메세지 출력
+	- 

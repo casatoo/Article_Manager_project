@@ -57,7 +57,7 @@ public class ArticleController extends Controller {
 
 
 	public void doWrite() {
-		String writename = loginedMember.name;
+		int writeid = loginedMember.id;
 		id += 1;
 		String regDate = Util.getNowDateStr();
 		System.out.printf("제목 : ");
@@ -65,7 +65,7 @@ public class ArticleController extends Controller {
 		System.out.printf("내용 : ");
 		String body = sc.nextLine();
 
-		Article article = new Article(id, regDate, title, body, writename);
+		Article article = new Article(id, regDate, title, body, writeid, 0);
 		articles.add(article);
 
 		System.out.printf("%d번 글이 생성되었습니다\n", id);
@@ -83,6 +83,7 @@ public class ArticleController extends Controller {
 		System.out.printf("검색어 : %s\n", searchKeyword);
 
 		List<Article> forPrintArticles = articles;
+		
 
 		if (searchKeyword.length() > 0) {
 			forPrintArticles = new ArrayList<>();
@@ -103,8 +104,13 @@ public class ArticleController extends Controller {
 		System.out.println("------------------------------------------------------------");
 		for (int i = forPrintArticles.size() - 1; i >= 0; i--) {
 			Article article = forPrintArticles.get(i);
-
-			System.out.printf("  %3d    |  %3s   | %4s |%6s  | %4d\n", article.id, article.title, article.regDate, article.writename, article.hit);
+			if(article.title.length()>5) {
+				String subtitle = article.title.substring(0,4);
+				System.out.printf("  %3d    |  %3s   | %4s |%5s    | %4d\n", article.id, subtitle, article.regDate, article.writeid , article.hit);
+			}
+			else {
+				System.out.printf("  %3d    |  %3s   | %4s |%5s    | %4d\n", article.id, article.title, article.regDate, article.writeid , article.hit);
+			}
 		}
 
 	}
@@ -152,7 +158,7 @@ public class ArticleController extends Controller {
 			System.out.printf("%d번 게시물은 없습니다\n", id);
 			return;
 		}
-		if(foundArticle.writename.equals(loginedMember.name)) {
+		if(matchId(id)) {
 			System.out.printf("제목 : ");
 			String title = sc.nextLine();
 			System.out.printf("내용 : ");
@@ -180,13 +186,12 @@ public class ArticleController extends Controller {
 		int id = Integer.parseInt(cmdBits[2]);
 
 		int foundIndex = getArticleIndexById(id);
-		Article foundArticle = getArticleById(id);
 
 		if (foundIndex == -1) {
 			System.out.printf("%d번 게시물은 없습니다\n", id);
 			return;
 		}
-		if(foundArticle.writename.equals(loginedMember.name)) {
+		if(matchId(id)) {
 		articles.remove(foundIndex);
 		System.out.printf("%d번 게시물을 삭제했습니다\n", id);
 		}
@@ -217,14 +222,23 @@ public class ArticleController extends Controller {
 
 		return null;
 	}
+	
+	private boolean matchId(int id) {
+		Article foundArticle = getArticleById(id);
+		if(foundArticle.writeid ==loginedMember.id) {
+			return true;
+		}
+		return false;
+	}
+	
 	public void makeTestData() {
 		System.out.println("테스트를 위한 게시물 데이터를 생성합니다.");
 		id += 1;
-		articles.add(new Article(id, Util.getNowDateStr(), "제목1", "내용1", "홍길동",11));
+		articles.add(new Article(id, Util.getNowDateStr(), "제목1", "내용1", 1,11));
 		id += 1;
-		articles.add(new Article(id, Util.getNowDateStr(), "제목2", "내용2", "김철수",22));
+		articles.add(new Article(id, Util.getNowDateStr(), "제목2", "내용2", 2,22));
 		id += 1;
-		articles.add(new Article(id, Util.getNowDateStr(), "제목3", "내용3", "김영희",33));
+		articles.add(new Article(id, Util.getNowDateStr(), "제목3", "내용3", 3,33));
 	}
 	
 }

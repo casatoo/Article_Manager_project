@@ -93,8 +93,7 @@ public class MemberController extends Controller {
 		String loginId = sc.nextLine();
 		System.out.printf("로그인 비밀번호 : ");
 		String loginPw = sc.nextLine();
-		int id = getMemberIndexByLoginId(loginId);
-		Member member = members.get(id);
+		Member member = getMemberByLoginId(loginId);
 		
 		if(member == null) {
 			System.out.println(" 일치하는 회원이 없습니다.");
@@ -147,6 +146,15 @@ public class MemberController extends Controller {
 		}
 
 		return -1;
+	}
+	private Member getMemberByLoginId(String loginId) {
+		int index = getMemberIndexByLoginId(loginId);
+
+		if (index == -1) {
+			return null;
+		}
+
+		return members.get(index);
 	}
 	
 	public void makeTestData() {
