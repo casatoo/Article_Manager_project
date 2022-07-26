@@ -84,11 +84,6 @@ public class MemberController extends Controller {
 	}
 	void doLogin(){
 		
-		if(logincheck()) {
-			System.out.println("이미 로그인 상태입니다.");
-			return;
-		}
-		
 		System.out.printf("로그인 아이디 : ");
 		String loginId = sc.nextLine();
 		System.out.printf("로그인 비밀번호 : ");
@@ -108,22 +103,14 @@ public class MemberController extends Controller {
 		
 	}
 	void showFrofile(){
-		if(logincheck()==false) {
-			System.out.println("로그인 해주세요");
-		}
-		else {
 		System.out.printf("아이디 : %s\n",loginedMember.loginId);
 		System.out.printf("이름 : %s\n",loginedMember.name);
-		}
+		
 	}
 	void doLogout(){
-		if(logincheck()) {
 			loginedMember = null;
 			System.out.println("성공적으로 로그아웃 되었습니다.");
-		}
-		else if(loginedMember == null) {
-			System.out.println(" 이미 로그아웃 하셨습니다.");
-		}
+
 	}
 
 	private boolean isJoinableLoginId(String loginId) {

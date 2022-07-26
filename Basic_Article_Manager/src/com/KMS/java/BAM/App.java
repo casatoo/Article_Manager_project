@@ -23,7 +23,6 @@ public class App {
 				System.out.println("명령어를 입력해주세요");
 				continue;
 			}
-			
 
 			if (cmd.equals("exit")) {
 				break;
@@ -49,7 +48,31 @@ public class App {
 				System.out.println("존재하지 않는 명령어입니다.");
 				continue;
 			}
-			
+
+			String cmdCombine = cmdBits[0] + "/" + cmdBits[1];
+
+			switch (cmdCombine) {
+			case "article/write":
+			case "article/delete":
+			case "article/modify":
+			case "member/logout":
+			case "member/profile":
+				if (Controller.logincheck() == false) {
+					System.out.println("로그인 후 이용해주세요");
+					continue;
+				}
+				break;
+			}
+			switch (cmdCombine) {
+			case "member/login":
+			case "member/join":
+				if (Controller.logincheck()) {
+					System.out.println("로그아웃 후 이용해주세요");
+					continue;
+				}
+				break;
+			}
+
 			controller.doAction(cmd, actionMethodName);
 
 		}
