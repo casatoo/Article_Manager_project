@@ -57,6 +57,7 @@ public class App {
 			case "article/modify":
 			case "member/logout":
 			case "member/profile":
+			case "member/leave":
 				if (Controller.logincheck() == false) {
 					System.out.println("로그인 후 이용해주세요");
 					continue;

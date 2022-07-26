@@ -34,6 +34,9 @@ public class MemberController extends Controller {
 		case "profile":
 			showFrofile();
 			break;
+		case "leave":
+			doLeave();
+			break;
 		default :
 			System.out.println("존재하지 않는 명령어입니다.");
 		}
@@ -118,6 +121,22 @@ public class MemberController extends Controller {
 			loginedMember = null;
 			System.out.println("성공적으로 로그아웃 되었습니다.");
 
+	}
+	void doLeave() {
+		System.out.printf("비밀번호 확인 :");
+		String loginPw = sc.nextLine();
+		if(loginPw=="") {
+			System.out.println("비밀번호가 입력되지 않았습니다.");
+			return;
+		}
+		if(loginedMember.loginPw.equals(loginPw)==false) {
+			System.out.println(" 비밀번호가 틀립니다.");
+			return;
+		}
+		int id = getMemberIndexByLoginId(loginedMember.loginId);
+		members.remove(id);
+		loginedMember = null;
+		System.out.println("정상적으로 탈퇴, 로그아웃 되었습니다.");
 	}
 
 	private boolean isJoinableLoginId(String loginId) {
