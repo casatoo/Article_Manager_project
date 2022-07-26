@@ -85,8 +85,16 @@ public class MemberController extends Controller {
 		
 		System.out.printf("로그인 아이디 : ");
 		String loginId = sc.nextLine();
+		if(loginId=="") {
+			System.out.println("아이디가 입력되지 않았습니다");
+			return;
+		}
 		System.out.printf("로그인 비밀번호 : ");
 		String loginPw = sc.nextLine();
+		if(loginPw=="") {
+			System.out.println("비밀번호가 입력되지 않았습니다.");
+			return;
+		}
 		Member member = getMemberByLoginId(loginId);
 		
 		if(member == null) {
