@@ -9,7 +9,6 @@ import com.KMS.java.BAM.util.Util;
 
 public class MemberController extends Controller {
 	Scanner sc = new Scanner(System.in);
-	private List<Member> members = new ArrayList<>();
 	private String cmd;
 	private String actionMethodName;
 	int id = 0;

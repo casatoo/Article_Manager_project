@@ -8,7 +8,6 @@ import com.KMS.java.BAM.dto.Article;
 import com.KMS.java.BAM.util.Util;
 
 public class ArticleController extends Controller {
-	private List<Article> articles = new ArrayList<>();
 	private String cmd;
 	private String actionMethodName;
 	int id = 0;
@@ -88,16 +87,23 @@ public class ArticleController extends Controller {
 			}
 		}
 
-		System.out.println("   번호   |   제목   |   	     날짜         |   작성자  |  조회수  ");
+		System.out.println("   번호   |    제목    |          날짜        |   작성자   |  조회수  ");
 		System.out.println("------------------------------------------------------------");
 		for (int i = forPrintArticles.size() - 1; i >= 0; i--) {
 			Article article = forPrintArticles.get(i);
-			if(article.title.length()>5) {
-				String subtitle = article.title.substring(0,4);
-				System.out.printf("  %3d    |  %3s   | %4s |%5s    | %4d\n", article.id, subtitle, article.regDate, article.writeid , article.hit);
+			String writeName = null;
+			for(int j = 0;j<members.size();j++) {
+				if(members.get(j).id == article.writeid) {
+					writeName = members.get(j).name;
+				}
+			}
+			
+			if(article.title.length()>4) {
+				String subtitle = article.title.substring(0,3)+"..";
+				System.out.printf("  %3d    |    %3s  | %4s |%5s    | %4d\n", article.id, subtitle, article.regDate, writeName , article.hit);
 			}
 			else {
-				System.out.printf("  %3d    |  %3s   | %4s |%5s    | %4d\n", article.id, article.title, article.regDate, article.writeid , article.hit);
+				System.out.printf("  %3d    |    %3s   | %4s |%5s    | %4d\n", article.id, article.title, article.regDate, writeName , article.hit);
 			}
 		}
 
