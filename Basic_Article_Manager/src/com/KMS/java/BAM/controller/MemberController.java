@@ -81,6 +81,8 @@ public class MemberController extends Controller {
 
 		Member member = new Member(id, regDate, loginId, loginPw, name);
 		members.add(member);
+		
+		loginedMember = member;
 
 		System.out.printf("%d번 회원님 환영합니다\n", id);
 	}
