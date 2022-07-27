@@ -13,10 +13,10 @@ public class MemberController extends Controller {
 	private String actionMethodName;
 	int id = 0;
 
-	public MemberController(){
+	public MemberController() {
 		makeTestData();
 	}
-	
+
 	public void doAction(String cmd, String actionMethodName) {
 		this.cmd = cmd;
 		this.actionMethodName = actionMethodName;
@@ -37,7 +37,7 @@ public class MemberController extends Controller {
 		case "leave":
 			doLeave();
 			break;
-		default :
+		default:
 			System.out.println("존재하지 않는 명령어입니다.");
 		}
 	}
@@ -84,52 +84,63 @@ public class MemberController extends Controller {
 
 		System.out.printf("%d번 회원님 환영합니다\n", id);
 	}
-	void doLogin(){
-		
-		System.out.printf("로그인 아이디 : ");
-		String loginId = sc.nextLine();
-		if(loginId=="") {
-			System.out.println("아이디가 입력되지 않았습니다");
-			return;
+
+	void doLogin() {
+		String loginId;
+		String loginPw;
+
+		while (true) {
+			System.out.printf("로그인 아이디 : ");
+			loginId = sc.nextLine();
+			if (loginId.replace(" ", "") == "") {
+				System.out.println("아이디가 입력되지 않았습니다.");
+				continue;
+			}
+			break;
 		}
-		System.out.printf("로그인 비밀번호 : ");
-		String loginPw = sc.nextLine();
-		if(loginPw=="") {
-			System.out.println("비밀번호가 입력되지 않았습니다.");
-			return;
+		while (true) {
+			System.out.printf("로그인 비밀번호 : ");
+			loginPw = sc.nextLine();
+			if (loginPw.replace(" ", "") == "") {
+				System.out.println("비밀번호가 입력되지 않았습니다.");
+				continue;
+			}
+			break;
 		}
 		Member member = getMemberByLoginId(loginId);
-		
-		if(member == null) {
+
+		if (member == null) {
 			System.out.println(" 일치하는 회원이 없습니다.");
 			return;
 		}
-		if(member.loginPw.equals(loginPw)==false) {
-			System.out.println(" 비밀번호를 다시 입력해주세요");
+		if (member.loginPw.equals(loginPw) == false) {
+			System.out.println(" 비밀번호가 틀렸습니다");
 			return;
 		}
 		loginedMember = member;
-		System.out.printf("%s 님 환영합니다.\n",member.name);
-		
+		System.out.printf("%s 님 환영합니다.\n", member.name);
 	}
-	void showFrofile(){
-		System.out.printf("아이디 : %s\n",loginedMember.loginId);
-		System.out.printf("이름 : %s\n",loginedMember.name);
-		
-	}
-	void doLogout(){
-			loginedMember = null;
-			System.out.println("성공적으로 로그아웃 되었습니다.");
+
+	void showFrofile() {
+		System.out.printf("아이디 : %s\n", loginedMember.loginId);
+		System.out.printf("이름 : %s\n", loginedMember.name);
 
 	}
+
+	void doLogout() {
+		loginedMember = null;
+		System.out.println("성공적으로 로그아웃 되었습니다.");
+
+	}
+
 	void doLeave() {
 		System.out.printf("비밀번호 확인 :");
 		String loginPw = sc.nextLine();
-		if(loginPw=="") {
+		if (loginPw == "") {
 			System.out.println("비밀번호가 입력되지 않았습니다.");
 			return;
 		}
-		if(loginedMember.loginPw.equals(loginPw)==false) {
+		if (loginedMember.loginPw.equals(loginPw) == false) {
 			System.out.println(" 비밀번호가 틀립니다.");
 			return;
 		}
@@ -160,6 +171,7 @@ public class MemberController extends Controller {
 
 		return -1;
 	}
+
 	private Member getMemberByLoginId(String loginId) {
 		int index = getMemberIndexByLoginId(loginId);
 
@@ -169,7 +181,7 @@ public class MemberController extends Controller {
 
 		return members.get(index);
 	}
-	
+
 	public void makeTestData() {
 		System.out.println("테스트를 위한 회원 데이터를 생성합니다.");
 		id += 1;
@@ -179,6 +191,5 @@ public class MemberController extends Controller {
 		id += 1;
 		members.add(new Member(id, Util.getNowDateStr(), "id3", "pw3", "김영희"));
 	}
-	
 
 }
