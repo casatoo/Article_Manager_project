@@ -12,7 +12,6 @@ import com.KMS.java.BAM.util.Util;
 public class MemberController extends Controller {
 	Scanner sc = new Scanner(System.in);
 	private String cmd;
-	private List<Member> members;
 	private String actionMethodName;
 	private MemberService memberService;
 
@@ -84,8 +83,6 @@ public class MemberController extends Controller {
 
 		Member member = new Member(id, regDate, loginId, loginPw, name);
 		memberService.add(member);
-		
-		loginedMember = member;
 
 		System.out.printf("%d번 회원님 환영합니다\n", id);
 	}
@@ -158,9 +155,9 @@ public class MemberController extends Controller {
 	public void makeTestData() {
 		System.out.println("테스트를 위한 회원 데이터를 생성합니다.");
 		
-		memberService.add(new Member(memberService.setNewId(), Util.getNowDateStr(), "id1", "pw1", "홍길동"));
-		memberService.add(new Member(memberService.setNewId(), Util.getNowDateStr(), "id2", "pw2", "김철수"));
-		memberService.add(new Member(memberService.setNewId(), Util.getNowDateStr(), "id3", "pw3", "김영희"));
+		memberService.add(new Member(1, Util.getNowDateStr(), "id1", "pw1", "홍길동"));
+		memberService.add(new Member(2, Util.getNowDateStr(), "id2", "pw2", "김철수"));
+		memberService.add(new Member(3, Util.getNowDateStr(), "id3", "pw3", "김영희"));
 	}
 
 }

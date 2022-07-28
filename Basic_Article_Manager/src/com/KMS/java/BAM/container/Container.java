@@ -18,6 +18,7 @@ public class Container {
 		articleDao = new ArticleDao();
 		memberDao = new MemberDao();
 		articleService = new ArticleService();
+		memberService = new MemberService();
 	}
 
 }
