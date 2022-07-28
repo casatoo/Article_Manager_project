@@ -3,10 +3,11 @@ package com.KMS.java.BAM;
 import java.util.Scanner;
 import com.KMS.java.BAM.controller.ArticleController;
 import com.KMS.java.BAM.controller.Controller;
+import com.KMS.java.BAM.controller.ExportController;
 import com.KMS.java.BAM.controller.MemberController;
 
 public class App {
-	
+
 	public App() {
 	}
 
@@ -17,10 +18,11 @@ public class App {
 
 		MemberController memberController = new MemberController();
 		ArticleController articleController = new ArticleController();
-		
+		ExportController exportController = new ExportController(sc);
+
 		articleController.makeTestData();
 		memberController.makeTestData();
-		
+
 		while (true) {
 
 			System.out.printf("명령어 : ");
@@ -50,6 +52,8 @@ public class App {
 				controller = articleController;
 			} else if (controllerName.equals("member")) {
 				controller = memberController;
+			} else if (controllerName.equals("export")) {
+				controller = exportController;
 			} else {
 				System.out.println("존재하지 않는 명령어입니다.");
 				continue;

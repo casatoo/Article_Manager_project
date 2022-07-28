@@ -13,7 +13,6 @@ import com.KMS.java.BAM.util.Util;
 public class ArticleController extends Controller {
 	private String cmd;
 	private String actionMethodName;
-	int id = 0;
 	Scanner sc = new Scanner(System.in);
 	private ArticleService articleService;
 	
@@ -67,7 +66,7 @@ public class ArticleController extends Controller {
 
 		String searchKeyword = cmd.substring("article list".length()).trim();
 
-		List<Article> forPrintArticles = articleService.getForPrintAritcles(searchKeyword);
+		List<Article> forPrintArticles = articleService.getForPrintArticles(searchKeyword);
 		
 		if (forPrintArticles.size() == 0) {
 			System.out.println("게시물이 없습니다");
@@ -179,9 +178,9 @@ public class ArticleController extends Controller {
 
 	public void makeTestData() {
 		System.out.println("테스트를 위한 게시물 데이터를 생성합니다.");
-		articleService.add(new Article(id, Util.getNowDateStr(), "제목1", "내용1", 1,11,"홍길동"));
-		articleService.add(new Article(id, Util.getNowDateStr(), "제목2", "내용2", 2,22,"김철수"));
-		articleService.add(new Article(id, Util.getNowDateStr(), "제목3", "내용3", 3,33,"김영희"));
+		articleService.add(new Article(articleService.setNewId(), Util.getNowDateStr(), "제목1", "내용1", 1,11,"홍길동"));
+		articleService.add(new Article(articleService.setNewId(), Util.getNowDateStr(), "제목2", "내용2", 2,22,"김철수"));
+		articleService.add(new Article(articleService.setNewId(), Util.getNowDateStr(), "제목3", "내용3", 3,33,"김영희"));
 	}
 	
 }

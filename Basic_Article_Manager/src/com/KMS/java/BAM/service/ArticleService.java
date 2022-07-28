@@ -13,7 +13,7 @@ public class ArticleService {
 		this.articleDao = Container.articleDao;
 	}
 	
-	public List<Article>getForPrintAritcles(String searchKeyword){
+	public List<Article>getForPrintArticles(String searchKeyword){
 		List<Article> articles = Container.articleDao.getArticles(searchKeyword);
 		return articles;
 	}
@@ -37,6 +37,9 @@ public class ArticleService {
 	}
 	public boolean matchId(int id) {
 		return articleDao.matchId(id);
+	}
+	public List<Article> getForPrintArticles() {
+		return articleDao.getArticles(null);
 	}
 
 }

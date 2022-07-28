@@ -6,6 +6,7 @@ import com.KMS.java.BAM.dao.ArticleDao;
 import com.KMS.java.BAM.dao.MemberDao;
 import com.KMS.java.BAM.dto.Member;
 import com.KMS.java.BAM.service.ArticleService;
+import com.KMS.java.BAM.service.ExportService;
 import com.KMS.java.BAM.service.MemberService;
 
 public class Container {
@@ -13,12 +14,16 @@ public class Container {
 	public static MemberDao	memberDao;
 	public static ArticleService articleService;
 	public static MemberService memberService;
+	public static ExportService exportService;
 	
 	static {
+		
 		articleDao = new ArticleDao();
 		memberDao = new MemberDao();
 		articleService = new ArticleService();
 		memberService = new MemberService();
+		
+		exportService = new ExportService();
 	}
 
 }

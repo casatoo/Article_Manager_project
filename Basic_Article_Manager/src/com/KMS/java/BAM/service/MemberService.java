@@ -37,6 +37,10 @@ public class MemberService {
 	public void remove(int id){
 		memberDao.remove(id);
 	}
+	public String getMemberNameById(int writeid) {
+
+		return memberDao.getMemberNameById(writeid);
+	}
 	
 	
 }
