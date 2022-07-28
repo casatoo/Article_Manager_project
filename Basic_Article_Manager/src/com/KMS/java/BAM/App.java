@@ -6,6 +6,9 @@ import com.KMS.java.BAM.controller.Controller;
 import com.KMS.java.BAM.controller.MemberController;
 
 public class App {
+	
+	public App() {
+	}
 
 	public void run() {
 		System.out.println("====== 프로그램 시작 ======");
@@ -14,7 +17,10 @@ public class App {
 
 		MemberController memberController = new MemberController();
 		ArticleController articleController = new ArticleController();
-
+		
+		articleController.makeTestData();
+		memberController.makeTestData();
+		
 		while (true) {
 
 			System.out.printf("명령어 : ");

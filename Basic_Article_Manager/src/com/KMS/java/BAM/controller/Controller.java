@@ -9,8 +9,6 @@ import com.KMS.java.BAM.dto.Member;
 public abstract class Controller {
 	
 	public static Member loginedMember = null;
-	public static List<Member> members = new ArrayList<>();
-	public static List<Article> articles = new ArrayList<>();
 	
 	public static boolean logincheck() {
 		if(loginedMember != null) {
@@ -18,6 +16,7 @@ public abstract class Controller {
 		}
 		return false;
 	}
+	public abstract void makeTestData();
 	
 	public abstract void doAction(String cmd, String actionMethodName);
 	

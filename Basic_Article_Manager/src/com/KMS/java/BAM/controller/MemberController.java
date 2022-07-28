@@ -4,17 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.KMS.java.BAM.container.Container;
 import com.KMS.java.BAM.dto.Member;
+import com.KMS.java.BAM.service.MemberService;
 import com.KMS.java.BAM.util.Util;
 
 public class MemberController extends Controller {
 	Scanner sc = new Scanner(System.in);
 	private String cmd;
+	private List<Member> members;
 	private String actionMethodName;
-	int id = 0;
+	private MemberService memberService;
 
 	public MemberController() {
-		makeTestData();
+		memberService = Container.memberService;
 	}
 
 	public void doAction(String cmd, String actionMethodName) {
@@ -43,7 +46,7 @@ public class MemberController extends Controller {
 	}
 
 	public void doJoin() {
-		id += 1;
+		int id = memberService.setNewId();
 		String regDate = Util.getNowDateStr();
 		String loginId = null;
 
@@ -52,7 +55,7 @@ public class MemberController extends Controller {
 			System.out.printf("로그인 아이디 : ");
 			loginId = sc.nextLine();
 
-			if (isJoinableLoginId(loginId) == false) {
+			if (memberService.isJoinableLoginId(loginId) == false) {
 				System.out.printf("%s은(는) 이미 사용중인 아이디입니다\n", loginId);
 				continue;
 			}
@@ -80,7 +83,7 @@ public class MemberController extends Controller {
 		String name = sc.nextLine();
 
 		Member member = new Member(id, regDate, loginId, loginPw, name);
-		members.add(member);
+		memberService.add(member);
 		
 		loginedMember = member;
 
@@ -109,7 +112,7 @@ public class MemberController extends Controller {
 			}
 			break;
 		}
-		Member member = getMemberByLoginId(loginId);
+		Member member = memberService.getMemberByLoginId(loginId);
 
 		if (member == null) {
 			System.out.println(" 일치하는 회원이 없습니다.");
@@ -146,52 +149,18 @@ public class MemberController extends Controller {
 			System.out.println(" 비밀번호가 틀립니다.");
 			return;
 		}
-		int id = getMemberIndexByLoginId(loginedMember.loginId);
-		members.remove(id);
+		int id = memberService.getMemberIndexByLoginId(loginedMember.loginId);
+		memberService.remove(id);
 		loginedMember = null;
 		System.out.println("정상적으로 탈퇴, 로그아웃 되었습니다.");
 	}
 
-	private boolean isJoinableLoginId(String loginId) {
-		int index = getMemberIndexByLoginId(loginId);
-
-		if (index == -1) {
-			return true;
-		}
-
-		return false;
-	}
-
-	private int getMemberIndexByLoginId(String loginId) {
-		int i = 0;
-		for (Member member : members) {
-			if (member.loginId.equals(loginId)) {
-				return i;
-			}
-			i++;
-		}
-
-		return -1;
-	}
-
-	private Member getMemberByLoginId(String loginId) {
-		int index = getMemberIndexByLoginId(loginId);
-
-		if (index == -1) {
-			return null;
-		}
-
-		return members.get(index);
-	}
-
 	public void makeTestData() {
 		System.out.println("테스트를 위한 회원 데이터를 생성합니다.");
-		id += 1;
-		members.add(new Member(id, Util.getNowDateStr(), "id1", "pw1", "홍길동"));
-		id += 1;
-		members.add(new Member(id, Util.getNowDateStr(), "id2", "pw2", "김철수"));
-		id += 1;
-		members.add(new Member(id, Util.getNowDateStr(), "id3", "pw3", "김영희"));
+		
+		memberService.add(new Member(memberService.setNewId(), Util.getNowDateStr(), "id1", "pw1", "홍길동"));
+		memberService.add(new Member(memberService.setNewId(), Util.getNowDateStr(), "id2", "pw2", "김철수"));
+		memberService.add(new Member(memberService.setNewId(), Util.getNowDateStr(), "id3", "pw3", "김영희"));
 	}
 
 }
